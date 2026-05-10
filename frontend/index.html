@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Blood Donation System — Dashboard</title>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span class="logo-icon">🩸</span>
+        <h1>Blood Donation System</h1>
+        <p>Active Management</p>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-label">Main</div>
+        <a href="index.html" class="nav-item active">
+            <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="donors.html" class="nav-item">
+            <span class="icon">👤</span> Donors
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <span class="icon">🏦</span> Blood Inventory
+        </a>
+        <div class="nav-label">Requests</div>
+        <a href="requests.html" class="nav-item">
+            <span class="icon">🔍</span> Blood Requests
+        </a>
+        <a href="recipients.html" class="nav-item">
+            <span class="icon">🏥</span> Recipients
+        </a>
+        <div class="nav-label">Events</div>
+        <a href="events.html" class="nav-item">
+            <span class="icon">📅</span> Donation Events
+        </a>
+    </nav>
+    <div class="sidebar-footer">
+        <p>VTU DBMS Project</p>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+    <div class="page-header">
+        <h2>Dashboard</h2>
+        <p>Overview of the blood donation management system</p>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-icon">👤</span>
+            <div class="stat-value" id="stat-donors">—</div>
+            <div class="stat-label">Total Donors</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">🏦</span>
+            <div class="stat-value" id="stat-banks">—</div>
+            <div class="stat-label">Blood Banks</div>
+        </div>
+        <div class="stat-card urgent">
+            <span class="stat-icon">🔴</span>
+            <div class="stat-value" id="stat-requests">—</div>
+            <div class="stat-label">Pending Requests</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">💉</span>
+            <div class="stat-value" id="stat-units">—</div>
+            <div class="stat-label">Total Units Available</div>
+        </div>
+    </div>
+
+    <!-- BLOOD GROUP SUMMARY -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Blood Group Inventory Summary</h3>
+        </div>
+        <div class="card-body">
+            <div class="inventory-grid" id="bg-summary">
+                <div class="loading">Loading inventory...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECENT REQUESTS -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Recent Blood Requests</h3>
+            <a href="requests.html" class="btn btn-outline btn-sm">View All</a>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recipient</th>
+                        <th>Blood Group</th>
+                        <th>Type</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="recent-requests">
+                    <tr><td colspan="6"><div class="loading">Loading...</div></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>

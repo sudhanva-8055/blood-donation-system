@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Blood Donation System — Blood Requests</title>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <span class="logo-icon">🩸</span>
+        <h1>Blood Donation System</h1>
+        <p>Active Management</p>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-label">Main</div>
+        <a href="index.html" class="nav-item">
+            <span class="icon">📊</span> Dashboard
+        </a>
+        <a href="donors.html" class="nav-item">
+            <span class="icon">👤</span> Donors
+        </a>
+        <a href="inventory.html" class="nav-item">
+            <span class="icon">🏦</span> Blood Inventory
+        </a>
+        <div class="nav-label">Requests</div>
+        <a href="requests.html" class="nav-item active">
+            <span class="icon">🔍</span> Blood Requests
+        </a>
+        <a href="recipients.html" class="nav-item">
+            <span class="icon">🏥</span> Recipients
+        </a>
+        <div class="nav-label">Events</div>
+        <a href="events.html" class="nav-item">
+            <span class="icon">📅</span> Donation Events
+        </a>
+    </nav>
+    <div class="sidebar-footer">
+        <p>VTU DBMS Project</p>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+    <div class="page-header">
+        <h2>Blood Requests</h2>
+        <p>Search for blood and manage requests</p>
+    </div>
+
+    <!-- SEARCH PANEL -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Search for Blood</h3>
+        </div>
+        <div class="card-body">
+
+            <!-- REQUEST TYPE TABS -->
+            <div class="request-type-tabs">
+                <button class="req-tab immediate active-tab" onclick="switchTab('immediate')">
+                    🔴 Immediate Request
+                </button>
+                <button class="req-tab nonimmediate" onclick="switchTab('nonimmediate')">
+                    🔵 Non-Immediate Request
+                </button>
+            </div>
+
+            <!-- SEARCH FORM -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Blood Group Needed</label>
+                    <select id="search-blood-group">
+                        <option value="">Select Blood Group</option>
+                        <option>A+</option><option>A-</option>
+                        <option>B+</option><option>B-</option>
+                        <option>AB+</option><option>AB-</option>
+                        <option>O+</option><option>O-</option>
+                    </select>
+                </div>
+                <div class="form-group" id="city-field">
+                    <label>Your City</label>
+                    <input type="text" id="search-city" placeholder="Enter your city (e.g. Bangalore)"/>
+                </div>
+            </div>
+
+            <div style="margin-top:16px">
+                <button class="btn btn-primary" onclick="searchBlood()">
+                    🔍 Search Blood
+                </button>
+            </div>
+
+            <!-- SEARCH RESULTS -->
+            <div style="margin-top:24px" id="search-results"></div>
+        </div>
+    </div>
+
+    <!-- ALL REQUESTS TABLE -->
+    <div class="card">
+        <div class="card-header">
+            <h3>All Blood Requests</h3>
+            <button class="btn btn-primary" onclick="openModal('add-request-modal')">
+                + New Request
+            </button>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Recipient</th>
+                        <th>Phone</th>
+                        <th>Blood Group</th>
+                        <th>Type</th>
+                        <th>Units</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-table">
+                    <tr><td colspan="9"><div class="loading">Loading requests...</div></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- ADD REQUEST MODAL -->
+<div class="modal-overlay" id="add-request-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>New Blood Request</h3>
+            <button class="modal-close" onclick="closeModal('add-request-modal')">✕</button>
+        </div>
+        <div class="modal-body">
+            <form id="add-request-form" onsubmit="addRequest(event)">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label>Recipient</label>
+                        <select id="req-recipient" required>
+                            <option value="">Select Recipient</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <select id="req-blood" required>
+                            <option value="">Select Blood Group</option>
+                            <option>A+</option><option>A-</option>
+                            <option>B+</option><option>B-</option>
+                            <option>AB+</option><option>AB-</option>
+                            <option>O+</option><option>O-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Request Type</label>
+                        <select id="req-type" required>
+                            <option value="">Select Type</option>
+                            <option value="Immediate">Immediate</option>
+                            <option value="Non-Immediate">Non-Immediate</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Units Needed</label>
+                        <input type="number" id="req-units" placeholder="Number of units" min="1" required/>
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="req-city" placeholder="Enter city" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('add-request-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
